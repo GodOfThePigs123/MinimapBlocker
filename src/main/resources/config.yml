@@ -1,0 +1,42 @@
+# MinimapBlocker configuration
+#
+# IMPORTANT: a server cannot delete mods from a player's computer. This plugin
+# does two things:
+#   1) Sends the "disable yourself" signals that some minimap mods obey.
+#   2) Optionally kicks players whose client announces a mod channel that
+#      matches a keyword below.
+# Neither is bulletproof against a player who edits or hides their mods.
+
+# --- 1) Disable signals (invisible system messages) ---
+send-disable-codes:
+  enabled: true
+  # Xaero's Minimap: completely disables the minimap.
+  xaero-no-minimap: true
+  # Xaero's Minimap + World Map: disables entity radar and cave mode.
+  # (Xaero's full-screen World Map itself cannot be switched off by a server code.)
+  xaero-fair-play: true
+  # VoxelMap (legacy codes): disables radar and cave mapping. Not the whole map.
+  voxelmap-no-radar: true
+  voxelmap-no-cave: true
+  # When the codes are re-sent, beyond the first join:
+  resend-on-world-change: true
+  resend-on-respawn: true
+
+# --- 2) Channel detection ---
+channel-detection:
+  enabled: true
+  kick: true
+  # Colour codes with & are allowed.
+  kick-message: "&cMinimap mods are not allowed on this server.\n&7Remove it and rejoin."
+  log-detections: true
+  # A client channel containing any of these words (case-insensitive) triggers
+  # detection. Use "/minimapblocker channels <player>" to see what a client
+  # registers, then tune this list. Too-generic words can kick innocent players.
+  keywords:
+    - xaero
+    - journeymap
+    - voxelmap
+    - minimap
+    - worldmap
+    - mapwriter
+    - waypoint
